@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <style>
+            table {
+                border: solid 1px orange;
+                border-spacing: 0px;
+            }
+            th, td {
+                border: solid 1px orange;
+                padding: 4px;
+            }
+            .nostock{
+                color: red;
+                font-weight: bold;
+            }
+            .blueback {
+                background-color: blue;
+            }
+            .redback {
+                background-color: red;
+            }
+            .greenback {
+                background-color: green;
+            }
+        </style>
+
+        <!-- JavaScript -->
+        <script>
+            var prod_data = [
+                {name: 'リラックスチェア', price: 4000, stock: 500, color: '赤'},
+                {name: 'リラックスデスク', price: 12000, stock: 200, color: '緑'},
+                {name: 'ブックスタンド', price: 800, stock: 0, color: '青'}
+            ];
+        </script>
+
+    </head>
+    <body>
+        <h1>新商品価格表</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>商品名</th>
+                    <th>価格</th>
+                    <th>在庫</th>
+                    <th>カラー</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <!-- JavaScript -->
+                <script>
+                    for(var i=0; i<3; i++){
+                        document.write('<tr>');
+                        // 商品名
+                        document.write('<td>' + prod_data[i].name + '</td>');
+                        // 価格
+                        document.write('<td>' + prod_data[i].price + '</td>');
+                        // 在庫
+                        if(prod_data[i].stock > 0)
+                            document.write('<td>' + prod_data[i].stock + '</td>');
+                        else
+                            document.write('<td class="nostock">在庫切れ</td>');
+                        // カラー
+                        switch(prod_data[i].color) {
+                            case '赤':
+                                document.write('<td class="redback"></td>');
+                                break;
+                            case '青':
+                                document.write('<td class="blueback"></td>');
+                                break;
+                            case '緑':
+                                document.write('<td class="greenback"></td>');
+                                break;
+                        }
+                        document.write('</tr>');
+                    }
+                </script>
+            </tbody>
+        </table>
+    </body>
+</html>
