@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <style>
+            table {
+                border: solid 1px orange;
+                border-spacing: 0px;
+            }
+            th, td {
+                border: solid 1px orange;
+                padding: 4px;
+            }
+            .nostock{
+                color: red;
+                font-weight: bold;
+            }
+        </style>
+
+        <!-- JavaScript -->
+        <script>
+            var prod_data = [
+                {name: 'リラックスチェア', price: 4000, stock: 500},
+                {name: 'リラックスデスク', price: 12000, stock: 200},
+                {name: 'ブックスタンド', price: 800, stock: 0}
+            ];
+        </script>
+
+    </head>
+    <body>
+        <h1>新商品価格表</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>商品名</th>
+                    <th>価格</th>
+                    <th>在庫</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <!-- JavaScript -->
+                <script>
+                    for(var i=0; i<3; i++){
+                        document.write('<tr>');
+                        document.write('<td>' + prod_data[i].name + '</td>');
+                        document.write('<td>' + prod_data[i].price + '</td>');
+                        if(prod_data[i].stock > 0)
+                            document.write('<td>' + prod_data[i].stock + '</td>');
+                        else
+                            document.write('<td class="nostock">在庫切れ</td>');
+                        document.write('</tr>');
+                    }
+                </script>
+            </tbody>
+        </table>
+    </body>
+</html>
