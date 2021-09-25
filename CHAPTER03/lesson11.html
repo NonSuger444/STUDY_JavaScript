@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <style>
+            table {
+                border: solid 1px orange;
+                border-spacing: 0px;
+            }
+            th, td {
+                border: solid 1px orange;
+                padding: 4px;
+            }
+            h2 {
+                color: blue;
+            }
+        </style>
+
+        <!-- JavaScript -->
+        <script>
+            var prod_data = [
+                {name: 'リラックスチェア', price: 4000},
+                {name: 'リラックスデスク', price: 12000},
+                {name: 'ブックスタンド', price: 800}
+            ];
+
+            function writeSimTable(row, kazu, data) {
+                document.write('<table>');
+                // 見出し
+                document.write('<tr>');
+                document.write('<th>製品名</th>');
+                document.write('<th>価格</th>');
+                for(var i = 1; i <= kazu; i++)
+                    document.write('<th>' + (i * 10) + '個</th>');
+                document.write('</tr>');
+                // データ行
+                for(var i = 0; i < row; i++) {
+                    document.write('<tr>');
+                    document.write('<td>' + data[i].name + '</td>');
+                    document.write('<td>' + data[i].price + '</td>');
+                    writePriceSim(data[i].price, kazu);
+                    document.write('</tr>');
+                }
+                document.write('</table>');
+            }
+
+            function writePriceSim(price, kazu) {
+                for(var i = 1; i <= kazu; i++) {
+                    document.write('<td>');
+                    document.write(price * i * 10);
+                    document.write('</td>');
+                }
+            }
+        </script>
+
+    </head>
+    <body>
+        <h1>新商品価格表</h1>
+        <script>
+            writeSimTable(3, 3, prod_data);
+        </script>
+    </body>
+</html>
