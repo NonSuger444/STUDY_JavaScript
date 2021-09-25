@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <style>
+            table {
+                border: solid 1px orange;
+                border-spacing: 0px;
+            }
+            th, td {
+                border: solid 1px orange;
+                padding: 4px;
+            }
+            h2 {
+                color: blue;
+            }
+        </style>
+
+        <!-- JavaScript -->
+        <script>
+            var prod_data1 = [
+                ['製品名', '価格'],
+                ['リラックスチェア', 4000],
+                ['リラックスデスク', 12000]
+            ];
+
+            var prod_data2 = [
+                ['製品名', '価格'],
+                ['スーパーチェア', 8000],
+                ['スーパーデスク', 25000]
+            ];
+
+            function writeTable(col, row, data) {
+                document.write('<table>\n');
+                for (var y=0; y<row; y++) {
+                    document.write('<tr>');
+                    for (var x=0; x<col; x++) {
+                        document.write('<td>');
+                        document.write(data[y][x]);
+                        document.write('</td>');
+                    }
+                    document.write('</tr>\n')
+                }
+                document.write('</table>\n');
+            }
+        </script>
+
+    </head>
+    <body>
+        <h1>新商品価格表</h1>
+        <h2>バリュー商品価格表</h2>
+        <script>
+            writeTable(2, 3, prod_data1);
+        </script>
+        <h2>スペシャル商品価格表</h2>
+        <script>
+            writeTable(2, 3, prod_data2);
+        </script>
+    </body>
+</html>
