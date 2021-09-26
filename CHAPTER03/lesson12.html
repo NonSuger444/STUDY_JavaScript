@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <style>
+            table {
+                border: solid 1px orange;
+                border-spacing: 0px;
+            }
+            th, td {
+                border: solid 1px orange;
+                padding: 4px;
+                text-align: center;
+            }
+        </style>
+        <script>
+            function writeCalendar(year, month) {
+                // Dateインスタンス生成
+                var d = new Date(year, month - 1, 0);
+                var weekday = ['日', '月', '火', '水', '木', '金', '土'];
+                document.write('<table>');
+                for(var y = 0;  y < 4; y++) {
+                    document.write('<tr>');
+                    for(var x = 0; x < 10; x++) {
+                        d.setDate(d.getDate() + 1);
+                        document.write('<td>');
+                        document.write(
+                            (d.getMonth() + 1) + ' / ' + d.getDate() + ' [ ' + weekday[d.getDay()] + ' ] '
+                        )
+                        document.write('</td>');
+                    }
+                    document.write('</tr>');
+                }
+                document.write('</table>');
+            }
+        </script>
+    </head>
+    <body>
+        <h1>カレンダー</h1>
+        <script>
+            writeCalendar(2021, 9);
+        </script>
+    </body>
+</html>
+
