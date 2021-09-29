@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+    </head>
+    <style>
+        table {
+            border: solid 1px orange;
+            border-spacing: 0px;
+        }
+
+        th, td {
+            border: solid 1px orange;
+            padding: 4px;
+            text-align: center;
+        }
+
+        .outer {
+            width: 328px;
+            text-align: center;
+        }
+
+        .prod_list {
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            background-color: gold;
+            padding: 4px;
+        }
+
+        li {
+            text-align: left;
+        }
+
+        [type = "button"], [type = "submit"] {
+            margin: 16px;
+        }
+
+        #basket {
+            width: 300px;
+            margin: auto;
+        }
+
+        .empty_basket {
+            border: dotted 6px darkcyan;
+            background: black;
+            padding: 8px;
+        }
+
+        .filled_basket {
+            border: dotted 6px green;
+            background: yellow;
+            padding: 8px;
+        }
+    </style>
+    <script>
+        window.onload = fillBasket;
+        function fillBasket() {
+            var elem = document.getElementById('basket');
+            elem.className = 'filled_basket';
+            elem.innerHTML = '<p>商品が入る</p>';
+        }
+    </script>
+    <body>
+        <h1>商品購入フォーム</h1>
+        <div class="outer">
+            <from>
+                <ul class="prod_list">
+                    <li><input type="radio" name="products" value="none" checked>なし</li>
+                    <li><input type="radio" name="products" value="リラックスチェア">リラックスチェア</li>
+                    <li><input type="radio" name="products" value="リラックスデスク">リラックスデスク</li>
+                    <li><input type="radio" name="products" value="ブックスタンド">ブックスタンド</li>
+                </ul>
+                <input type="text" id="txt_amount" value="0">個
+                <input type="button" id="btn_addprod" value="▼add">
+                <div id="basket" class="empty_basket"></div>
+                <input type="submit" value="購入">
+            </from>
+        </div>
+    </body>
+</html>
+
