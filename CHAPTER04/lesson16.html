@@ -65,7 +65,7 @@
                 elem.addEventListener(
                     'click',
                     // btn_addprodクリック時の処理
-                    function addProduct(event) {
+                    function (event) {
                         var elem = document.getElementById('basket');
                         elem.className = 'filled_basket';
                         elem.innerHTML += '<p>商品が入る</p>';
@@ -73,13 +73,6 @@
                     false);
             },
             false);
-
-        // btn_addprodクリック時の処理
-        function addProduct(event) {
-            var elem = document.getElementById('basket');
-            elem.className = 'filled_basket';
-            elem.innerHTML += '<p>商品が入る</p>';
-        }
     </script>
     <body>
         <h1>商品購入フォーム</h1>
