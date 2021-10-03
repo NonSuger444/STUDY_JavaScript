@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <script>
+            window.addEventListener('load', pageLoaded, false);
+            function pageLoaded(event) {
+                var count = 0;
+                var elem = document.getElementById('btn_count');
+                elem.addEventListener(
+                    'click',
+                    // クリック時の処理
+                    function(event) {
+                        count++;
+                        window.alert('カウンターは' + count);
+                    },
+                    false
+                );
+            }
+        </script>
+    </head>
+    <body>
+        <h1>クロージャテスト</h1>
+        <form>
+            <input type="button" id="btn_count" value="カウント">
+        </form>
+    </body>
+</html>
