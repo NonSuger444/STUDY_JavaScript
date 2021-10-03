@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+    </head>
+    <style>
+        table {
+            border: solid 1px orange;
+            border-spacing: 0px;
+        }
+
+        th, td {
+            border: solid 1px orange;
+            padding: 4px;
+            text-align: center;
+        }
+
+        .outer {
+            width: 328px;
+            text-align: center;
+        }
+
+        .prod_list {
+            text-align: center;
+        }
+
+        ul {
+            list-style-type: none;
+            background-color: gold;
+            padding: 4px;
+        }
+
+        li {
+            text-align: left;
+        }
+
+        [type = "button"], [type = "submit"] {
+            margin: 16px;
+        }
+
+        #basket {
+            width: 300px;
+            margin: auto;
+        }
+
+        .empty_basket {
+            border: dotted 6px darkcyan;
+            background: black;
+            padding: 8px;
+        }
+
+        .filled_basket {
+            border: dotted 6px green;
+            background: yellow;
+            padding: 8px;
+        }
+
+        .outer_second {
+            width: 328px;
+            text-align: center;
+        }
+
+        #basket_second {
+            width: 300px;
+            margin: auto;
+        }
+    </style>
+    <script>
+        window.addEventListener(
+            'load',
+            // ページロード時の処理
+            function (event) {
+                var elem = document.getElementById('btn_addprod');
+                elem.addEventListener('click', addProduct, false);
+
+                // リストボックス側
+                document.getElementById('btn_addprod_second').addEventListener('click', addProductSecond, false);
+            },
+            false);
+
+        // btn_addprodクリック時の処理
+        function addProduct(event) {
+            var basket = document.getElementById('basket');
+            basket.className = 'filled_basket';
+            // 選択されたオプションを取得
+            var product = '';
+            var options = document.getElementsByName('products');
+            for(var i = 0; i < options.length; i++) {
+                if(options[i].checked) {
+                    product = options[i].value;
+                    break;
+                }
+            }
+            // 個数を取得
+            var tbox = document.getElementById('txt_amount');
+            var amount = tbox.value;
+            // 値を設定
+            basket.innerHTML += '<p>' + product + ' ' + amount + '個</p>';
+        }
+
+        // btn_addprod_seconクリック時の処理
+        function addProductSecond(event) {
+            var basket = document.getElementById('basket_second');
+            basket.className = 'filled_basket';
+
+            // 選択されたオプションを取得
+            var selected = document.getElementById('sel_products').value;
+            // 個数を取得
+            var amount = document.getElementById('txt_amount_second').value;
+            // 値を設定
+            basket.innerHTML += '<p>' + selected + ' ' + amount +'個</p>';
+        }
+    </script>
+    <body>
+        <h1>商品購入フォーム</h1>
+        <div class="outer">
+            <from>
+                <ul class="prod_list">
+                    <li><input type="radio" name="products" value="none" checked>なし</li>
+                    <li><input type="radio" name="products" value="リラックスチェア">リラックスチェア</li>
+                    <li><input type="radio" name="products" value="リラックスデスク">リラックスデスク</li>
+                    <li><input type="radio" name="products" value="ブックスタンド">ブックスタンド</li>
+                </ul>
+                <input type="text" id="txt_amount" value="0">個
+                <input type="button" id="btn_addprod" value="▼add">
+                <div id="basket" class="empty_basket"></div>
+                <input type="submit" value="購入">
+            </from>
+        </div>
+
+        <h1>商品購入フォーム -リストボックスVar-</h1>
+        <div class="outer_second">
+            <from>
+                <select id="sel_products">
+                    <option value="none">なし</option>
+                    <option value="リラックスチェア">リラックスチェア</option>
+                    <option value="リラックスデスク">リラックスデスク</option>
+                    <option value="ブックスタンド">ブックスタンド</option>
+                </select>
+                <input type="text" id="txt_amount_second" value="0">個
+                <input type="button" id="btn_addprod_second" value="▼add">
+                <div id="basket_second" class="empty_basket"></div>
+                <input type="submit" value="購入">
+            </from>
+        </div>
+    </body>
+</html>
