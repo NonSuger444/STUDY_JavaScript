@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <script>
+            // ページロード時の処理
+            window.addEventListener(
+                'load',
+                function(event) {
+                    var result = document.getElementById('result');
+
+                    // a要素へのイベント
+                    document.getElementById('a1').addEventListener(
+                        'click',
+                        function(event) {
+                            result.innerHTML += '<li>a要素 : クリックされた </li>';
+                            // ★ 規定のアクションをキャンセル => a要素に指定したリンクへの遷移をキャンセル
+                            event.preventDefault();
+                            result.innerHTML += '<li>a要素 : 規定アクション中止</li>';
+                            // ★ イベントの伝播をキャンセル => divへイベントが伝播されるのを阻止する
+                            event.stopPropagation();
+                            result.innerHTML += '<li>a要素 : イベント伝播を終了</li>';
+                        },
+                        false);
+
+                    // p要素へのイベント
+                    document.getElementById('p1').addEventListener(
+                        'click',
+                        function(event) {
+                            result.innerHTML += '<li>p要素 : クリックされた </li>';
+                        },
+                        // ★ イベント捕獲順位を変更 => a要素をクリックした時にp要素のイベントが先に捕獲される
+                        true);
+
+                    // div要素へのイベント
+                    document.getElementById('div1').addEventListener(
+                        'click',
+                        function(event) {
+                            result.innerHTML += '<li>div要素 : クリックされた </li>';
+                        },
+                        false);
+                },
+                false
+            );
+        </script>
+    </head>
+    <body>
+        <h1>イベントバブルテスト</h1>
+        <div id="div1">
+            <p id="p1">
+                テキスト
+                <a id="a1" href="dummy.html">ボタン</a>
+                テキスト
+            </p>
+        </div>
+        <ul id="result"><li>メッセージリスト</li></ul>
+    </body>
+</html>
+
