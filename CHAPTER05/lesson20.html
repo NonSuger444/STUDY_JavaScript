@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <!-- <link rel="stylesheet" href="reset.css" type="text/css"> -->
+        <link rel="stylesheet" href="chap5.css" type="text/css">
+        <script>
+            window.addEventListener(
+                'load',
+                function(event) {
+                    // 全て閉じるイベント
+                    document.getElementById('lnk_closeAll').addEventListener('click', closeAll, false);
+                    // 全て開くイベント
+                    document.getElementById('lnk_openAll').addEventListener('click', openAll, false);
+                    // 個別開閉イベント(見出しに設定)
+                    setEventToTitles();
+                    // 星を追加イベント(全見出しに設定)
+                    setEventToLinks();
+                },
+                false);
+
+            // 全て開く
+            function openAll(event) {
+                // リンク先に遷移しようとする動作を阻止する
+                event.preventDefault();
+                changeAll(false);
+            }
+
+            // 全て閉じる
+            function closeAll(event) {
+                // リンク先に遷移しようとする動作を阻止する
+                event.preventDefault();
+                changeAll(true);
+            }
+
+            // trueならすべて閉じる、falseなら全て開く
+            function changeAll(close) {
+                var titles = document.getElementsByTagName('h2');
+                for (var i = 0; i < titles.length; i++) {
+                    // 親ノードを取得 => 親が属性やテキストであることはありえない => 取得するものは要素と決め打ちできる
+                    var parent = titles[i].parentNode;
+                    var topics = parent.getElementsByTagName('div');
+                    if(close) {
+                        topics[0].className = 'close';
+                    } else {
+                        topics[0].className = 'open';
+                    }
+                }
+            }
+
+            // 状態を反転させる
+            function setEventToTitles() {
+                var titles = document.getElementsByTagName('h2');
+                for(var i = 0; i < titles.length; i++) {
+                    titles[i].addEventListener('click', toggleTopic, false);
+                }
+            }
+
+            function toggleTopic(event) {
+                // クリックされた要素を確認する => EventオブジェクトのcurrentTargetプロパティで調べることができる
+                var topics = event.currentTarget.parentNode.getElementsByTagName('div');
+                if (topics[0].className == 'close') {
+                    topics[0].className = 'open';
+                } else {
+                    topics[0].className = 'close';
+                }
+            }
+
+            // 星を追加
+            function setEventToLinks() {
+                var titles = document.getElementsByTagName('h2');
+                for(var i = 0; i < titles.length; i++) {
+                    var links = titles[i].parentNode.getElementsByTagName('a');
+                    links[0].addEventListener(
+                        'click',
+                        addStar,
+                        false
+                    );
+                }
+            }
+
+            function addStar(event) {
+                event.preventDefault();
+
+                var link = event.currentTarget;
+                var parent = link.parentNode;
+                var star = document.createElement('img');
+                star.src = 'star.png';
+
+                parent.insertBefore(star, link);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <h1>よくある質問と回答</h1>
+            <p>
+                <a id="lnk_closeAll" href="#">すべて閉じる</a>
+                <a id="lnk_openAll" href="#">すべて展開</a>
+            </p>
+
+            <div id="topic1">
+                <h2>電源ランプが赤く光り、しばらくすると製品が動かなくなります</h2>
+                <div class="close">
+                    <p>電源ランプが赤く光るのは内臓バッテリーが消耗していることを示しています。コンセントを接続して充電してください。</p>
+                    <div><img src="star.png"><a href="#">追加</a></div>
+                </div>
+            </div>
+
+            <div id="topic2">
+                <h2>ときどきブザーが鳴りますが、問題ないでしょうか？</h2>
+                <div class="open">
+                    <p>本製品を長時間利用により低温やけどを負うことがあります。長時間使い続けていることをユーザーに伝えるため、4時間15分32秒ごとにピッピッという警告音を鳴らすようにしております。</p>
+                    <div><img src="star.png"><a href="#">追加</a></div>
+                </div>
+            </div>
+
+            <div id="topic3">
+                <h2>製品を床に落としてしまいました。問題ないでしょうか？</h2>
+                <div class="open">
+                    <p>本製品は高さ1メートルからの落下テスト10万回をパスしております。ただし、1メートル以上の高さから落下した場合は、故障する可能性がありますので、お近くのサービスセンターにご相談ください。</p>
+                    <div><img src="star.png"><a href="#">追加</a></div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
