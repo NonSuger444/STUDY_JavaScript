@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <link rel="stylesheet" href="gallery.css" type="text/css">
+        <script>
+            var photo_list = [
+                'img/photo001.jpg',
+                'img/photo002.jpg',
+                'img/photo003.jpg',
+                'img/photo004.jpg',
+                'img/photo005.jpg',
+            ];
+
+            // 現在表示している画像番号
+            var curphoto = 0;
+
+            window.addEventListener(
+                'load',
+                function(event) {
+                    // 前の画像へ
+                    document.getElementById('lnk_prev').addEventListener(
+                        'click',
+                        showPrev,
+                        false
+                    );
+                    // 次の画像へ
+                    document.getElementById('lnk_next').addEventListener(
+                        'click',
+                        showNext,
+                        false
+                    );
+                    // サムネイル作成
+                    createThumbs();
+                },
+                false
+            );
+
+            // 前の画像へ
+            function showPrev(event) {
+                event.preventDefault();
+                curphoto--;
+                changePhoto();
+            }
+
+            // 次の画像へ
+            function showNext(event) {
+                event.preventDefault();
+                curphoto++;
+                changePhoto();
+            }
+
+            function changePhoto() {
+                if(curphoto < 0)
+                    curphoto = photo_list.length - 1;
+                
+                if(curphoto > photo_list.length -1)
+                    curphoto = 0;
+                
+                var large = document.getElementById('img_large');
+                large.src = photo_list[curphoto];
+            }
+
+            // サムネール作成
+            function createThumbs(event) {
+                var holder = document.getElementById('thumbsholder');
+
+                // ダミーのサムネイルのimg要素を最初に全て削除する
+                while(holder.childNodes.length > 0) {
+                    // 最初のノードを削除
+                    holder.removeChild(holder.firstChild);
+                }
+
+                // 表示するサムネイルの画像数分の処理を施す
+                for(var i = 0; i < photo_list.length; i++) {
+                    // img要素を作成
+                    var img = document.createElement('img');
+                    // 写真のファイルパスを代入
+                    img.src = photo_list[i];
+                    // サイズを指定
+                    img.width = 96;
+                    img.height = 72;
+                    // 何番目の画像なのかを保存
+                    img.photoid = i;
+                    // クリックイベント
+                    img.addEventListener(
+                        'click',
+                        showPhoto,
+                        false
+                    );
+                    // サムネイルをWebページ上に表示
+                    holder.appendChild(img);
+                }
+
+                var large = document.getElementById('img_large');
+                large.src = photo_list[0];
+            }
+
+            function showPhoto(event) {
+                // クリックしたサムネイルElementオブジェクトを取得
+                var img = event.currentTarget;
+                // 大きいimg要素のElementオブジェクトを取得
+                var large = document.getElementById('img_large');
+                large.src = img.src;
+                // 現在表示している画像の番号を記録
+                curphoto = parseInt(img.photoid);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <h1>写真ギャラリー</h1>
+            <div id="imageholder">
+                <p>
+                    <a id="lnk_prev" href="#"><img src="img/prev-arrow.png"></a>
+                    <img id="img_large" src="img/photo001.jpg">
+                    <a id="lnk_next" href="#"><img src="img/next-arrow.png"></a>
+                </p>
+            </div>
+            <div id="thumbsholder">
+                <img src="img/photo001.jpg" width="96px" height="72px">
+                <img src="img/photo001.jpg" width="96px" height="72px">
+                <img src="img/photo001.jpg" width="96px" height="72px">
+                <img src="img/photo001.jpg" width="96px" height="72px">
+                <img src="img/photo001.jpg" width="96px" height="72px">
+            </div>
+        </div>
+    </body>
+</html>
