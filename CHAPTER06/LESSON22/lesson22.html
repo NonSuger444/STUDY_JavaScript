@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <style>
+            #wrapper {
+                width: 380px;
+            }
+
+            textarea {
+                width: 370px;
+            }
+
+            dt {
+                background: lightblue;
+                padding: 4px;
+                margin-top: 8px;
+            }
+
+            dd {
+                margin: 2px;
+            }
+        </style>
+        <script>
+            window.addEventListener(
+                'load',
+                function(event) {
+                    document.getElementById('btn_substr').addEventListener(
+                        'click',
+                        testSubstr,
+                        false
+                    );
+
+                    document.getElementById('btn_substring').addEventListener(
+                        'click',
+                        testSubstring,
+                        false
+                    );
+
+                    document.getElementById('btn_split').addEventListener(
+                        'click',
+                        testSplit,
+                        false
+                    );
+
+                    document.getElementById('btn_indexOf').addEventListener(
+                        'click',
+                        testIndexOf,
+                        false
+                    );
+                },
+                false
+            );
+
+            // substrメソッド
+            // ソーステキストから指定範囲のテキストを取り出して表示する(substr)
+            function testSubstr(event) {
+                var srctxt = document.getElementById('txt_source').value;
+                var v1 = document.getElementById('txt_substr1').value;
+                var v2 = document.getElementById('txt_substr2').value;
+                document.getElementById('output_substr').innerHTML += '<p>' + srctxt.substr(v1, v2) + '</p>';
+            }
+
+            // substringメソッド
+            // ソーステキストから指定範囲のテキストを取り出して表示する(substring)
+            function testSubstring(event) {
+                var srctxt = document.getElementById('txt_source').value;
+                var v1 = document.getElementById('txt_substr1').value;
+                var v2 = document.getElementById('txt_substr2').value;
+                document.getElementById('output_substr').innerHTML += '<p>' + srctxt.substring(v1, v2) + '</p>';
+            }
+
+            // splitメソッド
+            // ソーステキストが指定された文字で分割される(split)
+            function testSplit(event) {
+                var srctxt = document.getElementById('txt_source').value;
+                var v1 = document.getElementById('txt_split').value;
+                var output = document.getElementById('output_split');
+                var outarr = srctxt.split(v1);
+                for (var i = 0; i < outarr.length; i++) {
+                    output.innerHTML += '<p>' + outarr[i] + '</p>';
+                }
+            }
+
+            // indexOfメソッド
+            // 指定したテキストが何文字目かを調べる(indexOf)
+            function testIndexOf(event) {
+                var srctxt = document.getElementById('txt_source').value;
+                var v1 = document.getElementById('txt_indexOf').value;
+                var output = document.getElementById('output_indexOf');
+                output.innerHTML += '<p>' + v1 + ' ' + srctxt.indexOf(v1) + '</p>';
+            }
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <h1>テキストキッチン</h1>
+            <dl>
+                <dt>ソーステキスト</dt>
+                <dd>
+                    <textarea id="txt_source">翔泳社 / 10日でおぼえる / JavaScript</textarea>
+                </dd>
+                <dt>部分取り出し</dt>
+                <dd>
+                    <input type="text" id="txt_substr1" size="1" value="1">
+                    <input type="text" id="txt_substr2" size="1" value="8">
+                    <input type="button" id="btn_substr" value="substr">
+                    <input type="button" id="btn_substring" value="substring">
+                </dd>
+                <dd>
+                    <div id="output_substr"></div>
+                </dd>
+                <dt>区切り文字で分割</dt>
+                <dd>
+                    <input type="text" id="txt_split" size="1" value="/">
+                    <input type="button" id="btn_split" value="split" >
+                </dd>
+                <dd>
+                    <div id="output_split"></div>
+                </dd>
+                <dt>検索</dt>
+                <dd>
+                    <input type="text" id="txt_indexOf" size="8" value="J">
+                    <input type="button" id="btn_indexOf" value="indexOf">
+                </dd>
+                <dd>
+                    <div id="output_indexOf"></div>
+                </dd>
+            </dl>
+        </div>
+    </body>
+</html>
