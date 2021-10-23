@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+    </head>
+    <style>
+        #wrapper {
+            width: 380px;
+        }
+        table {
+            border: solid 1px orange;
+            border-spacing: 0px;
+            margin-bottom: 1px;
+        }
+        th, td {
+            border: solid 1px orange;
+            padding: 4px;
+        }
+        input [type='text'] {
+            width: 6px;
+        }
+    </style>
+    <script>
+        var data_list = [{distance: 0, time: 0}];
+
+        // 画面表示時
+        window.addEventListener(
+            'load',
+            function(event) {
+                document.getElementById('btn_addline').addEventListener(
+                    'click',
+                    addLine,
+                    false
+                );
+
+                document.getElementById('btn_sort').addEventListener(
+                    'click',
+                    sortTable,
+                    false
+                );
+
+                // 表描画
+                updateTable();
+            }
+        );
+
+        // 配列に基づいて表描画
+        function updateTable() {
+            var table = document.getElementById('inputtable');
+            var tbody = document.getElementsByTagName('tbody')[0];
+
+            // tbody要素の中の既存データ行を全て削除
+            while(tbody.childNodes.length > 0)
+                tbody.removeChild(tbody.firstChild);
+
+            for(var i = 0; i < data_list.length; i++) {
+                // --- 行 -------
+                var newtr = document.createElement('tr');
+
+                // --- 列 ------
+
+                // 行番号
+                var td = document.createElement('td');
+                td.className = 'linenumber';
+                td.innerHTML = i + 1;
+                newtr.appendChild(td);
+
+                // 距離
+                td = document.createElement('td');
+                td.className = 'distance';
+                var input = document.createElement('input');
+                input.className = 'txt_distance';
+                input.type = 'text';
+                input.value = data_list[i].distance;
+                input.addEventListener('change', updateData, false);
+                td.appendChild(input);
+                newtr.appendChild(td);
+
+                // 時間
+                td = document.createElement('td');
+                td.className = 'time';
+                input = document.createElement('input');
+                input.className = 'txt_time';
+                input.type = 'text';
+                input.value = data_list[i].time;
+                input.addEventListener('change', updateData, false);
+                td.appendChild(input);
+                newtr.appendChild(td);
+
+                // 速度
+                td = document.createElement('td');
+                td.className = 'speed';
+                td.innerHTML = calcSpeed(data_list[i].distance, data_list[i].time);
+                newtr.appendChild(td);
+
+                tbody.appendChild(newtr);
+            }
+
+        }
+
+        // 速度更新
+        function updateData(event) {
+            var tr = event.currentTarget.parentNode.parentNode;
+            var dist = 0, time = 0;
+            var inputs = tr.getElementsByTagName('input');
+
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].className == 'txt_distance')
+                    dist = parseFloat(inputs[i].value);
+                if (inputs[i].className == 'txt_time')
+                    time = parseFloat(inputs[i].value);
+            }
+
+            var speed = calcSpeed(dist, time);
+            var tds = tr.getElementsByTagName('td');
+
+            for (var i = 0; i < tds.length; i++) {
+                // データを元に配列に反映
+                if (tds[i].className == 'linenumber') {
+                    var idx = parseInt(tds[i].innerHTML) - 1;
+                    data_list[idx].distance = dist;
+                    data_list[idx].time = time;
+                }
+
+                // 速度更新
+                if (tds[i].className == 'speed')
+                    tds[i].innerHTML = speed;
+            }
+        }
+
+        // 速度計算
+        function calcSpeed(dist, time) {
+            if (time == 0) return 0;
+            return speed = Math.round(dist / time * 100) / 100;
+        }
+
+        // 行追加
+        function addLine(event) {
+            data_list.push({distance: 0, time: 0});
+            updateTable();
+        }
+
+        // テーブル並べ替え
+        function sortTable(event) {
+            data_list.sort(compareSpeed);
+            data_list.reverse();
+            updateTable();
+        }
+
+        function compareSpeed(a, b) {
+            var spd1 = calcSpeed(a.distance, a.time);
+            var spd2 = calcSpeed(b.distance, b.time);
+
+            if (spd1 < spd2) return -1;
+
+            if (spd1 > spd2) return 1;
+
+            return 0;
+        }
+    </script>
+    <body>
+        <div id="warpper">
+            <h1>走行距離</h1>
+            <p>
+                <input type="button" id="btn_sort" value="並び替え">
+                <input type="button" id="btn_addline" value="行追加">
+            </p>
+            <table id="inputtable">
+                <thead>
+                    <tr>
+                        <th>行</th>
+                        <th>距離(km)</th>
+                        <th>時間(時)</th>
+                        <th>時速</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="linenumber">1</td>
+                        <td class="distance">0000</td>
+                        <td class="time">0000</td>
+                        <td class="speed">0000</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
