@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <style>
+            #wrapper {
+                width: 380px;
+            }
+
+            textarea {
+                width: 370px;
+            }
+
+            dt {
+                background: lightblue;
+                padding: 4px;
+                margin-top: 8px;
+            }
+
+            dd {
+                margin: 2px;
+            }
+            
+            span {
+                color: red;
+            }
+        </style>
+        <script>
+            window.addEventListener(
+                'load',
+                function(event) {
+                    document.getElementById('txt_digit').addEventListener(
+                        'keyup',
+                        validDigit,
+                        false
+                    );
+
+                    document.getElementById('txt_mail').addEventListener(
+                        'keyup',
+                        validMail,
+                        false
+                    );
+
+                    document.getElementById('txt_url').addEventListener(
+                        'keyup',
+                        validUrl,
+                        false
+                    );
+
+                    document.getElementById('btn_urlreplace').addEventListener(
+                        'click',
+                        replaceUrl,
+                        false
+                    );
+                },
+                false
+            );
+
+            // 数字チェック
+            function validDigit(event) {
+                var str = document.getElementById('txt_digit').value;
+                var regexp = /^\-?\d+$/;
+                var output = document.getElementById('output_digit');
+                if(regexp.test(str))
+                    output.innerHTML = '';
+                else
+                    output.innerHTML = '数値ではありません';
+            }
+
+            // メールチェック
+            function validMail(event) {
+                var str = document.getElementById('txt_mail').value;
+                var regexp = /^[\w_\-\.]+@[\w\-\.]+$/;
+                var output = document.getElementById('output_mail');
+                if(regexp.test(str))
+                    output.innerHTML = '';
+                else
+                    output.innerHTML = '正しいアドレスではありません';
+            }
+
+            // URLチェック
+            function validUrl(event) {
+                var str = document.getElementById('txt_url').value;
+                var regexp = /^http(s)?:\/\/([\w\-]+)\.([\w\-\.]+)\/([\w\-\.\/#]*)$/;
+                var output = document.getElementById('output_url1');
+                if(regexp.test(str))
+                    output.innerHTML = '';
+                else
+                    output.innerHTML = '正しいアドレスではありません';
+            }
+
+            // URL置換
+            function replaceUrl(event) {
+                var str = document.getElementById('txt_url').value;
+                var regexp = /^http(s)?:\/\/([\w\-]+)\.([\w\-\.]+)\/([\w\-\.\/#]*)$/;
+                var output = document.getElementById('output_url2');
+                output.innerHTML = str.replace(regexp, 'http$1://mobile.$3/$4');
+            }
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <h1>データを入力してください</h1>
+            <dl>
+                <dt>数字</dt>
+                <dd>
+                    <input type="text" id="txt_digit" value="65535">
+                    <span id="output_digit"></span>
+                </dd>
+                <dt>メールアドレス</dt>
+                <dd>
+                    <input type="text" id="txt_mail" value="abcdefg@hijklm.com">
+                    <span id="output_mail"></span>
+                </dd>
+                <dt>ホームページのURL</dt>
+                <dd>
+                    <input type="text" id="txt_url" size="38" value="http://www.abcdefg.com/hijklm/opqr.html">
+                </dd>
+                <dd>
+                    <span id="output_url1"></span>
+                </dd>
+                <dd>
+                    <input type="button" id="btn_urlreplace" value="replace">
+                </dd>
+                <dd>
+                    <div id="output_url2"></div>
+                </dd>
+            </dl>
+        </div>
+    </body>
+</html>
