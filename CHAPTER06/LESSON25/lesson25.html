@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <script>
+            let win1;
+            let winfeatures = "menubar=no, location=no, scrollbars=no, width=300, height=300";
+
+            window.addEventListener(
+                "load",
+                function(event) {
+                    let elem = document.getElementById("btn_popup");
+                    elem.addEventListener("click", openWindow, false);
+                },
+                false);
+
+            function openWindow(event) {
+                win1 = window.open("", "10jspopupwin", winfeatures);
+                win1.document.getElementsByTagName("body")[0].style.background = "blue";
+                let w = window.screen.availWidth;
+                let h = window.screen.availHeight;
+                win1.moveTo(w / 2 - 150, h / 2 - 150);
+            }
+        </script>
+    </head>
+    <body>
+        <div id ="wrapper">
+            <h1>ポップアップ</h1>
+            <input type="button" id="btn_popup" value="POPUP!">
+        </div>
+    </body>
+</html>
+
