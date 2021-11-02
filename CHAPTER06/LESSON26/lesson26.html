@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <style>
+            #wrapper {
+                width: 500px;
+            }
+            #watch {
+                font-size: 96px;
+                background: darkcyan;
+                padding: 10px;
+                color: white;
+                margin: 8px 0px;
+                text-align: center;
+            }
+            .alm_hide {
+                display: none;
+            }
+            .alm_show {
+                font-size: 32px;
+                background: red;
+                padding: 6px;
+                color: white;
+                margin: 4px 0px;
+                text-align: center;
+            }
+
+        </style>
+        <script>
+            window.addEventListener(
+                "load",
+                function(event) {
+                    document.getElementById("alm_message").className = "alm_hide";
+                    document.getElementById("btn_alarm").addEventListener("click", setAlarm, false);
+                    startWatch();
+                },
+                false
+            );
+
+            // 時計開始
+            function startWatch() {
+                // 1秒毎に関数処理を実施するように指定
+                window.setInterval(function () {
+                    let time = new Date();
+                    document.getElementById("watch").innerHTML = zero2D(time.getHours()) + ":" + zero2D(time.getMinutes()) + ":" + zero2D(time.getSeconds());
+                },
+                1000);
+            }
+
+            // 0で埋めて2桁にする
+            function zero2D(num) {
+                let str = "0" + num;
+                return str.substr(-2, 2);
+            }
+
+            // アラーム開始
+            function setAlarm(event) {
+                let message = document.getElementById("alm_message");
+                // 1分後に関数処理を実施するように指定 ... [1]
+                let alarmtimerID = window.setTimeout(function () {
+                    // [1]のタイマーは使用済みなので、念のため削除しておく(本来はWebブラウザが自動的に削除してくれる)
+                    window.clearTimeout(alarmtimerID);
+                    message.className = "alm_show";
+                    // 10秒後に関数処理を実施するように指定 ... [2]
+                    let vanishtimerID = window.setTimeout(function () {
+                        // [2]のタイマーは使用済みなので、念のため削除しておく(本来はWebブラウザが自動的に削除してくれる)
+                        window.clearTimeout(vanishtimerID);
+                        message.className = "alm_hide";
+                    },
+                    10000);
+                },
+                60000);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <h1>デジタル時計</h1>
+            <p id="watch">12:00:00</p>
+            <div id="alm_message" class="alm_show">アラーム</div>
+            <input type="button" value="1分後" id="btn_alarm">
+        </div>
+    </body>
+</html>
