@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <style>
+            #wrapper {
+                width: 380px;
+            }
+            ul {
+                list-style-type: none;
+                background: gold;
+                padding: 4px;
+            }
+        </style>
+        <script>
+            window.addEventListener(
+                "load",
+                function (event) {
+                    loadCookie();
+                    document.getElementById("txt_name").addEventListener("change", saveCookie, false);
+                    document.getElementById("txt_mail").addEventListener("change", saveCookie, false);
+                },
+                false
+            );
+
+            // Cookieの読み込み
+            function loadCookie(event) {
+                let str = document.cookie;
+                if(!str) return;
+
+                document.getElementById('output').innerHTML = str;
+
+                let sp1 = str.split(";");
+                for(let i = 0; i < sp1.length; i++) {
+                    let s = sp1[i].replace(/\s/, "");
+                    let sp2 = s.split("=");
+                    document.getElementById(sp2[0]).value = unescape(sp2[1]);
+                }
+            }
+
+            // Cookieの保存
+            function saveCookie(event) {
+                let elem = event.currentTarget;
+                document.cookie = elem.id + " = " + escape(elem.value);
+            }
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <h1>自動記憶</h1>
+            <ul>
+                <li>
+                    <input type="text" id="txt_name" value="お名前">
+                </li>
+                <li>
+                    <input type="text" id="txt_mail" value="メールアドレス">
+                </li>
+            </ul>
+            <div id="output"></div>
+        </div>
+    </body>
+</html>
