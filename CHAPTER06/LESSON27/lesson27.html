@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <style>
+            #wrapper {
+                width: 380px;
+            }
+            ul {
+                list-style-type: none;
+                background: gold;
+                padding: 4px;
+            }
+        </style>
+        <script>
+            window.addEventListener(
+                "load",
+                function (event) {
+                    document.getElementById("btn_go").addEventListener("click", goNextPage, false);
+                },
+                false
+            );
+
+            function goNextPage (event) {
+                let fname = "";
+                let links = document.getElementsByName("links");
+                for (let i = 0; i < links.length; i++) {
+                    if(links[i].checked) {
+                        fname = links[i].value;
+                        break;
+                    }
+                }
+
+                let color = "";
+                let colors = document.getElementsByName("colors");
+                for (let i = 0; i < colors.length; i++) {
+                    if(colors[i].checked) {
+                        color = colors[i].value;
+                        break;
+                    }
+                }
+
+                window.location = fname + ".html?col=" + color;
+            }
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <h1>ページA</h1>
+            <ul>
+                <li>
+                    <input type="radio" name="links" value="lesson27-b" checked>
+                    ページB
+                </li>
+                <li>
+                    <input type="radio" name="links" value="lesson27-c">
+                    ページC
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <input type="radio" name="colors" value="red" checked>
+                    赤
+                </li>
+                <li>
+                    <input type="radio" name="colors" value="green">
+                    緑
+                </li>
+                <li>
+                    <input type="radio" name="colors" value="blue">
+                    青
+                </li>
+            </ul>
+            <input type="button" value="NextページへGO!" id="btn_go">
+        </div>
+    </body>
+</html>
