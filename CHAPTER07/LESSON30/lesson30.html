@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <style>
+            #wrapper {
+                width: 380px;
+            }
+            ul {
+                list-style-type: none;
+                background: gold;
+                padding: 4px;
+            }
+            #text {
+                font-size: 13px;
+                line-height: 1.5em;
+                border: solid 1px blue;
+                padding: 8px;
+                height: 240px;
+                overflow: auto;
+            }
+        </style>
+        <script>
+            window.addEventListener(
+                "load",
+                function(event) {
+                    document.getElementById("btn_loadtext").addEventListener("click", loadText, false)
+                },
+                false
+            );
+
+            // テキスト読み込み
+            function loadText(event) {
+                const req = new XMLHttpRequest();
+                req.open("GET", "aozora.txt");
+                req.onreadystatechange = function(event) {
+                    if(req.readyState == 4) {
+                        let text = document.getElementById("text");
+                        if(req.status == 200) {
+                            text.innerHTML = req.responseText;
+                        } else {
+                            text.innerHTML = "読み込みエラー";
+                        }
+                    }
+                };
+                req.send();
+            }
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <h1>テキスト読み込み</h1>
+            <input type="button" value="読み込み" id="btn_loadtext">
+            <div id="text"></div>
+        </div>
+    </body>
+</html>
