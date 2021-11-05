@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <style>
+            #wrapper {
+                width: 380px;
+            }
+            ul {
+                list-style-type: none;
+                background: gold;
+                padding: 4px;
+            }
+            #text {
+                font-size: 13px;
+                line-height: 1.5em;
+                border: solid 1px blue;
+                padding: 8px;
+                height: 246px;
+                overflow: auto;
+            }
+        </style>
+        <script>
+            let readingpart = 0;
+            window.addEventListener(
+                "load",
+                function (event) {
+                    document.getElementById("text").addEventListener("scroll", scrollText, false);
+                    loadText();
+                },
+                false
+            );
+
+            // テキスト読み込み
+            function loadText() {
+                let req = new XMLHttpRequest();
+                req.open("GET", "part" + (readingpart + 1) + ".txt");
+
+                req.onreadystatechange = function (event) {
+                    if(req.readyState == 4) {
+                        let text = document.getElementById("text");
+                        if(req.status == 200) {
+                            text.innerHTML += req.responseText;
+                            readingpart++;
+                        }
+                    }
+                };
+
+                req.send();
+            }
+
+            // スクロール
+            function scrollText(event) {
+                let text = event.currentTarget;
+                let output = document.getElementById("output");
+                let ss = text.scrollHeight - text.scrollTop;
+
+                output.innerHTML = "H" + (text.clientHeight + 2) +
+                                   " SH:" + text.scrollHeight +
+                                   " ST:" + text.scrollTop +
+                                   " SS:" + ss;
+
+                if(ss <= (text.clientHeight + 2))
+                    loadText();
+            }
+        </script>
+    </head>
+    <body>
+        <div id="wrapper">
+            <h1>スクロール読み込み</h1>
+            <div id="text"></div>
+            <p id="output"></p>
+        </div>
+    </body>
+</html>
