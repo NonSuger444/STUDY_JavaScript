@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+    </head>
+    <style>
+        #wrapper {
+            width: 380px;
+        }
+        #div_source {
+            font-size: 13px;
+            line-height: 1.5em;
+            border: solid 1px blue;
+            padding: 8px;
+            margin: 12px 0px;
+        }
+        table {
+            border: solid 1px orange;
+            border-spacing: 0px;
+        }
+        th, td {
+            border: solid 1px orange;
+            padding: 4px;
+        }
+    </style>
+    <script>
+        window.addEventListener(
+            "load",
+            function(event) {
+                document.getElementById("btn_load").addEventListener("click", loadJSON, false);
+            },
+            false
+        );
+
+        // テキスト読み込み
+        function loadJSON() {
+            const req = new XMLHttpRequest();
+            req.open("GET", "prod_data.json");
+            req.onreadystatechange = function (event) {
+                if (req.readyState == 4) {
+                    const div = document.getElementById("div_source");
+                    if(req.status == 200) {
+                        div.innerHTML = req.responseText;
+                        createTable(req.responseText);
+                    } else {
+                        div.innerHTML = "読み込みエラー";
+                    }
+                }
+            };
+            req.send();
+        }
+
+        // 表作成
+        function createTable(jsontxt) {
+            const prod_data = eval("(" + jsontxt + ")");
+            const table = document.getElementById("prod_table");
+            const tbody = document.getElementsByTagName("tbody")[0];
+
+            for(let i = 0; i < prod_data.length; i++) {
+                const tr = document.createElement("tr");
+                tr.appendChild(createTableColumn(prod_data[i].name));
+                tr.appendChild(createTableColumn(prod_data[i].price));
+                tbody.appendChild(tr);
+            }
+        }
+
+        // 表の列を作成
+        function createTableColumn(data) {
+            const td = document.createElement("td");
+            td.innerHTML = data;
+            return td;
+        }
+
+    </script>
+    <body>
+        <div id="wrapper">
+            <h1>JSON読み込み</h1>
+            <input type="button" value="読み込み" id="btn_load">
+            <div id="div_source"></div>
+            <table id="prod_table">
+                <thead>
+                    <tr>
+                        <th>商品名</th>
+                        <th>価格</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
