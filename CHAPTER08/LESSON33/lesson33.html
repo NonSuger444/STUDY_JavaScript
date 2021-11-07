@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <style>
+            table {
+                border: solid 1px orange;
+                border-spacing: 0px;
+            }
+            th, td {
+                border: solid 1px orange;
+                padding: 4px;
+            }
+        </style>
+        <script>
+            function Product(name, price) {
+                this.name = name;
+                this.price = price;
+            }
+
+            let prod_data = [];
+            prod_data.push(new Product("リラックスチェア", 4000));
+            prod_data.push(new Product("リラックスデスク", 12000));
+            prod_data.push(new Product("ブックスタンド", 800));
+
+            window.addEventListener(
+                "load",
+                function (event) {
+                    createTable();
+                },
+                false
+            );
+
+            // 表作成
+            function createTable() {
+                const table = document.getElementById("prod_table");
+                const tbody = document.getElementsByTagName("tbody")[0];
+                for (let i = 0; i < prod_data.length; i++) {
+                    const tr = document.createElement("tr");
+                    tr.appendChild(createTableColumn(prod_data[i].name));
+                    tr.appendChild(createTableColumn(prod_data[i].price));
+                    tbody.appendChild(tr);
+                }
+            }
+
+            // 表の列を追加
+            function createTableColumn(data) {
+                const td = document.createElement("td");
+                td.innerHTML = data;
+                return td;
+            }
+        </script>
+
+    </head>
+    <body>
+        <h1>新製品価格表</h1>
+        <table id="prod_table">
+            <thead>
+                <tr>
+                    <th>製品名</th>
+                    <th>価格</th>
+                    <th>10個</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </body>
+</html>
