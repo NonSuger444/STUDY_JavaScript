@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <style>
+            table {
+                border: solid 1px orange;
+                border-spacing: 0px;
+            }
+            th, td {
+                border: solid 1px orange;
+                padding: 4px;
+            }
+        </style>
+        <script>
+            function Product (name, price) {
+                this.name = name;
+                this.price = price;
+                // コンストラクタ内でのメソッド作成
+                // => インスタンスが作成されるたびにfunctionによりFunctionインスタンスが作成される
+                // => ∴ インスタンスが消費するメモリ量が増加する
+                this.calcPrice1 = function(amount) {
+                    return this.price * amount;
+                }
+            }
+
+            // prototypeを使用
+            // => オブジェクトの原型を参照している
+            // => 追加したメソッドはすべてインスタンスに引き継がれる
+            // => ∴ メモリ消費量を抑えられる
+            Product.prototype.calcPrice2 = function(amount) {
+                return this.price * amount;
+            }
+
+            let prod_data = [];
+            prod_data.push(new Product('リラックスチェア', 4000));
+            prod_data.push(new Product('リラックスデスク', 12000));
+            prod_data.push(new Product('ブックスタンド', 800));
+
+            function TableTool() {}
+            // 静的メソッドを作成
+            TableTool.createTdStr = function(values) {
+                let str = '';
+                for (let i = 0; i < values.length; i++){
+                    str += '<td>' + values[i] + '</td>';
+                }
+                return str;
+            }
+
+            window.addEventListener(
+                'load',
+                function(event){
+                    createTable();
+                },
+                false
+            );
+
+            // 表作成
+            function createTable() {
+                let tbody = document.getElementsByTagName('tbody')[0];
+                for (let i = 0; i < prod_data.length; i++){
+                    let tr = document.createElement('tr');
+                    tr.innerHTML = TableTool.createTdStr(
+                        [
+                            prod_data[i].name,
+                            prod_data[i].price,
+                            prod_data[i].calcPrice2(10),
+                            prod_data[i].calcPrice2(20),
+                            prod_data[i].calcPrice2(30)
+                        ]
+                    );
+                    tbody.appendChild(tr);
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <h1>新製品価格表</h1>
+        <table id="prod_table">
+            <thead>
+                <tr>
+                    <th>製品名</th>
+                    <th>価格</th>
+                    <th>10個</th>
+                    <th>20個</th>
+                    <th>30個</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </body>
+</html>
