@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <style>
+            table {
+                border: solid 1px orange;
+                border-spacing: 0px;
+            }
+            th, td {
+                border: solid 1px orange;
+                padding: 4px;
+            }
+        </style>
+        <script>
+            function Product(name, price) {
+                this.name = name;
+                this.price = price;
+            }
+            Product.prototype.calcPrice = function(amount) {
+                return this.price * amount;
+            };
+
+            // ハードプロダクト
+            function HardProduct(name, price) {
+                this.name = name;
+                this.price = price;
+                this.zaiko = 0;
+            }
+            HardProduct.prototype = new Product();
+
+            // ソフトプロダクト
+            function SoftProduct(name, price) {
+                this.name = name;
+                this.price = price;
+            }
+            SoftProduct.prototype = new Product();
+            SoftProduct.prototype.calcPrice = function() {
+                return " - ";
+            }
+
+            let prod_data = [];
+            prod_data.push(new HardProduct('リラックスチェア', 4000));
+            prod_data.push(new HardProduct('リラックスデスク', 12000));
+            prod_data.push(new HardProduct('ブックスタンド', 800));
+            prod_data.push(new SoftProduct('設置サービス', 8000));
+            prod_data.push(new SoftProduct('1年保証', 5000));
+
+            // テーブルツール
+            function TableTool() {}
+            TableTool.createTdStr = function(values) {
+                let str = '';
+                for (let i = 0; i < values.length; i++){
+                    str += '<td>' + values[i] + '</td>';
+                }
+                return str;
+            }
+
+            window.addEventListener(
+                'load',
+                function(event) {
+                    createTable();
+                },
+                false
+            );
+
+            // 表作成
+            function createTable() {
+                let table = document.getElementById('prod_table');
+                let tbody = document.getElementsByTagName('tbody')[0];
+                for(let i = 0; i < prod_data.length; i++) {
+                    // インスタンスがProductであるかを確認する
+                    // => Productを継承しているのでインスタンスはProductと判定される
+                    if(!(prod_data[i] instanceof Product))
+                        continue;
+
+                    let tr = document.createElement('tr');
+                    tr.innerHTML = TableTool.createTdStr(
+                        [
+                            prod_data[i].name,
+                            prod_data[i].price,
+                            prod_data[i].calcPrice(10),
+                            prod_data[i].calcPrice(20),
+                            prod_data[i].calcPrice(30)
+                        ]
+                    );
+                    tbody.appendChild(tr);
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <h1>新製品価格表</h1>
+        <table id="prod_table">
+            <thead>
+                <tr>
+                    <th>製品名</th>
+                    <th>価格</th>
+                    <th>10個</th>
+                    <th>20個</th>
+                    <th>30個</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </body>
+</html>
