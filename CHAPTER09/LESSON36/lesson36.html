@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+    </head>
+    <body>
+        <h1></h1>
+        <div></div>
+
+        <!-- jQery CDN -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <!-- Code -->
+        <script>
+            // ロード時に実行する処理を定義
+            // => readyメソッドは、loadイベントにイベントハンドラを設定する働きがある
+            $(document).ready(function(){
+                // h1にテキストを設定
+                // => innerHTMLプロパティに近い働きを持つ
+                // => ただし、テキスト専用のためタグなどは解釈されない
+                $("h1").text("Hello jQuery!");
+                // p要素とテキストを設定
+                // => innerHTMLと同等の役割
+                $("div").html("<p>jQueryを使用してみよう!!</p>");
+            })
+        </script>
+    </body>
+</html>
