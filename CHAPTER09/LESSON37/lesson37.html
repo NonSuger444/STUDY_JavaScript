@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <link rel="stylesheet" href="chap9.css" type="text/css">
+    </head>
+    <body>
+        <div id="wrapper">
+            <h1>よくある質問と回答</h1>
+            <p>
+                <a id="lnk_closeAll" href="#">すべて閉じる</a>
+                <a id="lnk_openAll" href="#">すべて展開</a>
+            </p>
+
+            <div class="topic">
+                <h2>電源ランプが赤く光り、しばらくすると製品が動かなくなります</h2>
+                <div class="close">
+                    <p>電源ランプが赤く光るのは内臓バッテリーが消耗していることを示しています。コンセントを接続して充電してください。</p>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>ときどきブザーが鳴りますが、問題ないでしょうか？</h2>
+                <div class="open">
+                    <p>本製品を長時間利用により低温やけどを負うことがあります。長時間使い続けていることをユーザーに伝えるため、4時間15分32秒ごとにピッピッという警告音を鳴らすようにしております。</p>
+                </div>
+            </div>
+
+            <div class="topic">
+                <h2>製品を床に落としてしまいました。問題ないでしょうか？</h2>
+                <div class="open">
+                    <p>本製品は高さ1メートルからの落下テスト10万回をパスしております。ただし、1メートル以上の高さから落下した場合は、故障する可能性がありますので、お近くのサービスセンターにご相談ください。</p>
+                </div>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function(){
+                $('#lnk_closeAll').click(closeAll);
+                $('#lnk_openAll').click(openAll);
+                $('h2').click(toggleTopic);
+            });
+
+            // すべて非表示
+            function closeAll(event) {
+                // リンク先への移動をキャンセル
+                event.preventDefault();
+                $('.topic > div').hide('fast');
+            }
+
+            // すべて表示
+            function openAll(event) {
+                // リンク先への移動をキャンセル
+                event.preventDefault();
+                $('.topic > div').show('fast');
+            }
+
+            // クリックしたものを切り替え
+            function toggleTopic(event) {
+                // const div = $('div', event.currentTarget.parentNode);
+                const div = $(event.currentTarget).siblings('div');
+                div.toggle('fast');
+            }
+        </script>
+    </body>
+</html>
+
