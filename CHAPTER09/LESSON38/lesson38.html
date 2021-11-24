@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <style>
+            #wrapper {
+                width: 380px;
+            }
+
+            #div_source {
+                font-size: 13px;
+                line-height: 1.5em;
+                border: solid 1px blue;
+                padding: 8px;
+                margin: 12px 0px;
+            }
+
+            table {
+                border: solid 1px orange;
+                border-spacing: 0px;
+            }
+
+            th, td {
+                border: solid 1px orange;
+                padding: 4px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="wrapper">
+            <h1>JSON読み込み</h1>
+            <input type="button" id="btn_load" value="読み込み">
+            <div id="div_status"></div>
+            <table id="prod_table">
+                <thead>
+                    <tr>
+                        <th>製品名</th>
+                        <th>価格</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function() {
+                $('#btn_load').click(
+                    function(event) {
+                        $.getJSON('prod_data.json', null, createTable);
+                    }
+                );
+                // エラー対処
+                $(document).ajaxError(
+                    function(event, jqXHR, ajaxSettings, thrownError) {
+                        $('#div_status').text('読み込みエラー');
+                    }
+                );
+            });
+
+            // 表作成
+            function createTable(prod_data, textStatus, jqXHR) {
+                $('#div_status').text(textStatus);
+                const tbody = $('#prod_table tbody');
+                for(let i = 0; i < prod_data.length; i++) {
+                    tbody.append(
+                        '<tr><td>' + prod_data[i].name + '</td><td>' + prod_data[i].price + '</td></tr>'
+                    );
+                }
+            }
+        </script>
+    </body>
+</html>
