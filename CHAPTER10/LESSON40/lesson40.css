@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+*{
+    line-height: 1.5em;
+}
+
+body{
+    background: #FFFFAA
+}
+
+section{
+    width: 380px;
+    margin: 16px;
+}
+
+h1{
+    -moz-box-shadow: 0 5px 5px -3px black;
+    -webkit-box-shadow: 0 5px 5px -3px black;
+    box-shadow: 0 5px 5px -3px black;
+    background: orange;
+    color: black;
+    font-size: 20px;
+    padding: 2px 4px;
+    margin: 1em 0 0.5em 0;
+    border-radius: 6px;
+}
+
+canvas {
+    -moz-box-shadow: 0 5px 5px -3px black;
+    -webkit-box-shadow: 0 5px 5px -3px black;
+    box-shadow: 0 5px 5px -3px black;
+    border: solid 2px orange;
+    border-radius: 8px;
+    padding: 6px;
+    background: white;
+}

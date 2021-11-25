@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>10日で覚えるJavaScript</title>
+        <link rel="stylesheet" href="lesson40.css" type="text/css">
+        <script>
+            browser_data = [
+                {name:"IE8", share:29.23},
+                {name:"IE9", share:17.31},
+                {name:"Chrome15", share:15.4},
+                {name:"Firefox8", share:8.08},
+                {name:"Firefox7", share:6.07},
+                {name:"IE7",share:4.76},
+
+            ];
+
+            window.addEventListener(
+                'load',
+                function(event) {
+                    drawGraph();
+                },
+                false
+            );
+
+            // グラフ描画
+            function drawGraph() {
+                let context = document.querySelector("canvas").getContext("2d");
+                context.font = '10pt Arial';
+
+                const std_value = 30;
+                const std_width = 290;
+                const colors = ["red", "blue", "green", "yellow", "cyan", "magenta"];
+                for(let i = 0; i < browser_data.length; i++) {
+                    context.fillStyle = "black";
+                    context.fillText(browser_data[i].name, 0, 28 * i + 18);
+                    context.fillStyle = colors[i % colors.length];
+                    context.fillRect(
+                        65,
+                        28 * i + 4,
+                        std_width / std_value * browser_data[i].share,
+                        20
+                    );
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <section>
+            <h1>Webブラウザ国内シェア(2011年11月)</h1>
+            <canvas width="364" height="168">
+                canvas要素が利用できるWebブラウザで開いてください。
+            </canvas>
+        </section>
+    </body>
+</html>
