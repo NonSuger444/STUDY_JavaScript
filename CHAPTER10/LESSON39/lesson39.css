@@ -1,0 +1,83 @@
+@charset "utf-8";
+
+*{
+    line-height: 1.5em;
+}
+
+body{
+    background: #FFFFAA
+}
+
+section{
+    width: 380px;
+    margin: 16px;
+}
+h1{
+    -moz-box-shadow: 0 5px 5px -3px black;
+    -webkit-box-shadow: 0 5px 5px -3px black;
+    box-shadow: 0 5px 5px -3px black;
+    background: orange;
+    background: -webkit-repeating-linear-gradient(left, orange , orange 5%, #AAFFAA 5%, #AAFFAA 10%);
+    background: -moz-repeating-linear-gradient(left, orange , orange 5%, #AAFFAA 5%, #AAFFAA 10%);
+    background: -o-repeating-linear-gradient(left, orange , orange 5%, #AAFFAA 5%, #AAFFAA 10%);
+    background: -ms-repeating-linear-gradient(left, orange , orange 5%, #AAFFAA 5%, #AAFFAA 10%);
+    background: repeating-linear-gradient(left, orange , orange 5%, #AAFFAA 5%, #AAFFAA 10%);
+    color: black;
+    font-size: 20px;
+    padding: 2px 4px;
+    margin: 1em 0 0.5em 0;
+    border-radius: 6px;
+}
+
+h1 + p{
+    text-align: right;
+}
+
+a{
+    font-size: 12px;
+    border-radius: 4px;
+    background-color: #FFBB44;
+    padding: 2px;
+    text-decoration: none;
+}
+
+article{
+    -webkit-box-shadow: 0 5px 5px -3px black;
+    -moz-box-shadow: 0 5px 5px -3px black;
+    -o-box-shadow: 0 5px 5px -3px black;
+    -ms-box-shadow: 0 5px 5px -3px black;
+    box-shadow: 0 5px 5px -3px black;
+    border: solid 1px gray;
+    margin: 1em 0 0em 0;
+    background: white;
+}
+
+h2{
+    background: lightblue;
+    background: -webkit-repeating-linear-gradient(left, lightblue , lightblue 5%, #AAAAFF 5%, #AAAAFF 10%);
+    background: -moz-repeating-linear-gradient(left, lightblue , lightblue 5%, #AAAAFF 5%, #AAAAFF 10%);
+    background: -o-repeating-linear-gradient(left, lightblue , lightblue 5%, #AAAAFF 5%, #AAAAFF 10%);
+    background: -ms-repeating-linear-gradient(left, lightblue , lightblue 5%, #AAAAFF 5%, #AAAAFF 10%);
+    background: repeating-linear-gradient(left, lightblue , lightblue 5%, #AAAAFF 5%, #AAAAFF 10%);
+    padding: 2px 4px;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 6px 0px 0px 0px;
+}
+
+h2 + div{
+    margin: 0px;
+    padding: 4px;
+}
+
+p{
+    font-size: 12px;
+    margin: 0px;
+}
+
+.close{
+    display: none;
+}
+
+.open{
+}
